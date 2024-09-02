@@ -5,20 +5,24 @@ import { getMonth } from "../../helpers/Date";
 import "./style.scss";
 
 const Slider = () => {
+
   const { data } = useData();
   const [index, setIndex] = useState(0);
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
     new Date(evtA.date).getTime() > new Date(evtB.date).getTime() ? -1 : 1
   );
+
   const nextCard = () => {
     setIndex((prevIndex) => 
       prevIndex < byDateDesc.length - 1 ? prevIndex + 1 : 0
     );
   };
+
   useEffect(() => {
     const interval = setInterval(nextCard, 5000);
     return () => clearInterval(interval);
   }, [byDateDesc]);
+
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
@@ -54,6 +58,7 @@ const Slider = () => {
       ))}
     </div>
   );
+  
 };
 
 export default Slider;
